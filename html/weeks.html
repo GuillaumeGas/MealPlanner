@@ -1,0 +1,24 @@
+<table align="center">
+    <tr>
+        <td colspan="3"><a href="index.php?page=weeks&action=add">Nouvelle semaine</a></td>
+    </tr>
+    {foreach from=$Weeks item=week}
+    <tr>
+        <td>{$week.Date}</td>
+        <td><a href="index.php?page=weeks&action=delete&id={$week.Id}">supprimer</a></td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <table>
+                {foreach from=$week.Meals item=meal}
+                <tr>
+                    <td>{$meal.Name}</td>
+                    <td>{$meal.TypeStr}</td>
+                    <td>{$meal.QuickToMakeStr}</td>
+                </tr>
+                {/foreach}
+            </table>
+        </td>
+    </tr>
+    {/foreach}
+</table>

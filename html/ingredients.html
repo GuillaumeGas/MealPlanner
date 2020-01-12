@@ -1,0 +1,13 @@
+<table align="center">
+    <tr>
+        <td colspan="4"><a href="index.php?page=ingredients&action=add">Nouvel ingredient</a></td>
+    </tr>
+    {foreach from=$Ingredients item=ing}
+    <tr>
+        <td>{$ing.Name}</td>
+        <td>{$ing.TypeStr}</td>
+        <td>{$ing.Unit}</td>
+        <td><a href="index.php?page=ingredients&action=delete&id={$ing.Id}">Supprimer</a></td>
+    </tr>
+    {/foreach}
+</table>

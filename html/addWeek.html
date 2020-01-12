@@ -1,0 +1,69 @@
+<script language="JavaScript">
+    function addMealToDay(mealName, mealId, dayNum)
+    {
+        var div = document.getElementById("day" + dayNum);
+        div.innerHTML = "";
+
+        var innerLabel = document.createElement("label");
+        innerLabel.innerText = mealName;
+
+        var innerCheckbox = document.createElement("input");
+        innerCheckbox.type = "checkbox";
+        innerCheckbox.value = mealId;
+        innerCheckbox.name = "mealsId[]";
+        innerCheckbox.checked = true;
+        innerCheckbox.style = "visibility: hidden";
+
+        div.appendChild(innerLabel);
+        div.appendChild(innerCheckbox);
+    }
+</script>
+
+<form method="POST" action="index.php?page=weeks&action=add">
+    <table align="center">
+        <tr>
+            <td>
+                <table>
+                    {foreach from=$Days item=day}
+                    <tr><th>{$day.DayName} : </th><td><div id="day{$day.DayNum}"></div></td></tr>
+                    {/foreach}
+                </table>
+            </td>
+        <tr>
+            <th><input type="submit" value="Ok"/></th>
+        </tr>
+    </table>
+
+    {foreach from=$Days item=day}
+    <div id="dayTab{$day.DayNum}">
+        <table>
+            <tr>
+                <td>Viande</td>
+                <td><input type="checkbox" id="checkboxMeat"/></td>
+            </tr>
+            <tr>
+                <td>Poisson</td>
+                <td><input type="checkbox" id="checkboxFish"/></td>
+            </tr>
+            <tr>
+                <td>Rapide</td>
+                <td><input type="checkbox" id="checkboxQuick"/></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table>
+                        {foreach from=$day.Meals item=meal}
+                        <tr>
+                            <td>{$meal.Name}</td>
+                            <td>{$meal.TypeStr}</td>
+                            <td>{$meal.QuickToMakeStr}</td>
+                            <td><button onclick="addMealToDay('{$meal.Name}', {$meal.Id}, {$day.DayNum}); return false;">Sélectionner</button></td>
+                        </tr>
+                        {/foreach}
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    {/foreach}
+</form>

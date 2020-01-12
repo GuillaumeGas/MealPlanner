@@ -1,0 +1,11 @@
+<h2 align="center">{$Week.Date}</h2>
+
+<table align="center">
+    {foreach from=$Week.Meals item=meal}
+    <tr>
+        <td>{$meal.Name}</td>
+        <td>{$meal.TypeStr}</td>
+        <td>{$meal.QuickToMakeStr}</td>
+    </tr>
+    {/foreach}
+</table>

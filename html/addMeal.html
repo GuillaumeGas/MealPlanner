@@ -1,0 +1,29 @@
+<form method="POST" action="index.php?page=meals&action=add">
+    <table align="center">
+        <tr>
+            <th>Name : </th>
+            <th><input type="text" name="mealName"/></th>
+        </tr>
+        <tr>
+            <th>Rapide à préparer ? : </th>
+            <th><input type="checkbox" name="quickToMake"/></th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table>
+                    {foreach from=$Ingredients item=ing}
+                    <tr>
+                        <td>{$ing.Name}</td>
+                        <td>{$ing.TypeStr}</td>
+                        <td>{$ing.Unit}</td>
+                        <td><input type="checkbox" name="idIngredients[]" value="{$ing.Id}"/></td>
+                    </tr>
+                    {/foreach}
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2"><input type="submit" value="Ok"/></th>
+        </tr>
+    </table>
+</form>

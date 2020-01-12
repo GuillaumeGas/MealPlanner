@@ -1,0 +1,25 @@
+<form method="POST" action="index.php?page=ingredients&action=add">
+    <table align="center">
+        <tr>
+            <th>Name : </th>
+            <th><input type="text" name="ingredientName"/></th>
+        </tr>
+        <tr>
+            <th>Type : </th>
+            <th>
+                <select name="type">
+                    <option value="0">Veg</option>
+                    <option value="1">Viande</option>
+                    <option value="2">Poisson</option>
+                </select>
+            </th>
+        </tr>
+        <tr>
+            <th>Unit : </th>
+            <th><input type="text" name="unit"/></th>
+        </tr>
+        <tr>
+            <th><input type="submit" value="Ok"/></th>
+        </tr>
+    </table>
+</form>

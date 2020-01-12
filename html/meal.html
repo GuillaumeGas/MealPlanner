@@ -1,0 +1,16 @@
+<h2 align="center">{$Meal.Name}</h2>
+
+<table align="center">
+    <tr>
+        <td colspan="3">
+            Type : {$Meal.TypeStr} Rapide à faire : {$Meal.QuickToMakeStr}
+        </td>
+    </tr>
+    {foreach from=$Meal.Ingredients item=ing}
+    <tr>
+        <td>{$ing.Name}</td>
+        <td>{$ing.TypeStr}</td>
+        <td>{$ing.Unit}</td>
+    </tr>
+    {/foreach}
+</table>
