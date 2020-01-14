@@ -3,7 +3,10 @@
     <!-- Content Row -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Ingrédients <i><a href="index.php?page=ingredients&action=add">(Nouveau)</a></i></h6>
+            <h6 class="m-0 font-weight-bold text-primary">
+                Ingrédients - <a href="index.php?page=ingredients&action=add" class="btn btn-outline-primary btn-sm">Nouveau</a>
+
+            </h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -22,7 +25,11 @@
                         <td><a href="index.php?page=ingredients&id={$ing.Id}">{$ing.Name}</a></td>
                         <td>{$ing.TypeStr}</td>
                         <td>{$ing.Unit}</td>
-                        <td><a href="index.php?page=ingredients&action=delete&id={$ing.Id}">Supprimer</a></td>
+                        <td style="text-align: center">
+                            <a href="index.php?page=ingredients&action=delete&id={$ing.Id}" class="btn btn-outline-danger btn-sm">
+                                Supprimer
+                            </a>
+                        </td>
                     </tr>
                     {/foreach}
                     </tbody>

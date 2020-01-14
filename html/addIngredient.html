@@ -1,25 +1,45 @@
-<form method="POST" action="index.php?page=ingredients&action=add">
-    <table align="center">
-        <tr>
-            <th>Name : </th>
-            <th><input type="text" name="ingredientName"/></th>
-        </tr>
-        <tr>
-            <th>Type : </th>
-            <th>
-                <select name="type">
-                    <option value="0">Veg</option>
-                    <option value="1">Viande</option>
-                    <option value="2">Poisson</option>
-                </select>
-            </th>
-        </tr>
-        <tr>
-            <th>Unit : </th>
-            <th><input type="text" name="unit"/></th>
-        </tr>
-        <tr>
-            <th><input type="submit" value="Ok"/></th>
-        </tr>
-    </table>
-</form>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Content Row -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Nouvel Ingrédient</h6>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="index.php?page=ingredients&action=add">
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">Nom : </label>
+                    <div class="col-md-10">
+                        <input type="text" name="ingredientName" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">Type : </label>
+                    <div class="col-md-10">
+                        <select name="type" class="form-control">
+                            <option value="0">Veg</option>
+                            <option value="1">Viande</option>
+                            <option value="2">Poisson</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">Unité : </label>
+                    <div class="col-md-10">
+                        <select name="unit" class="form-control">
+                            <option value="0">(kilo)gramme</option>
+                            <option value="1">litre</option>
+                            <option value="2">piece</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary btn-block btn-sm">Ok</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
