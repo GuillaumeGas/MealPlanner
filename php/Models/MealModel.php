@@ -86,6 +86,18 @@ class MealModel
         $res = $query->fetch();
         $res["Ingredients"] = $this->GetIngredientsOfMeal($id);
 
+        if ($res["Type"] == Meat)
+            $res["TypeStr"] = "Viande";
+        else if ($res["Type"] == Fish)
+            $res["TypeStr"] = "Poisson";
+        else
+            $res["TypeStr"] = "Veg";
+
+        if ($res["QuickToMake"] == 0)
+            $res["QuickToMakeStr"] = "Non";
+        else
+            $res["QuickToMakeStr"] = "Oui";
+
         return $res;
     }
 
@@ -107,7 +119,16 @@ class MealModel
         $index = 0;
         while ($data = $query->fetch())
         {
-            $ingredients[$index++] = $data;
+            $ingredients[$index] = $data;
+
+            if ($ingredients[$index]["Type"] == Meat)
+                $ingredients[$index]["TypeStr"] = "Viande";
+            else if ($ingredients[$index]["Type"] == Fish)
+                $ingredients[$index]["TypeStr"] = "Poisson";
+            else
+                $ingredients[$index]["TypeStr"] = "Veg";
+
+            $index++;
         }
 
         return $ingredients;

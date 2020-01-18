@@ -56,20 +56,21 @@ class WeekController extends BaseController
             $days = array();
             for($i = 0; $i < 7; $i++)
             {
-                $meals = $this->mealModel->GetAll();
-                $days[$i]["Meals"] = $meals;
                 $days[$i]["DayNum"] = $i+1;
                 $days[$i]["DayName"] = $daysName[$i];
             }
 
+            $meals = $this->mealModel->GetAll();
+
             $this->smarty->assign("Days", $days);
+            $this->smarty->assign("Meals", $meals);
             return $this->smarty->fetch("html/addWeek.html");
         }
     }
 
     private function PrintWeek($id)
     {
-        $this->smarty->assign("Week", $this->WeekModel->GetFromId($id));
+        $this->smarty->assign("Week", $this->weekModel->GetFromId($id));
         return $this->smarty->fetch("html/week.html");
     }
 

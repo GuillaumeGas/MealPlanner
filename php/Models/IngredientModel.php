@@ -39,7 +39,16 @@ class IngredientModel
     {
         $query = $this->bdd->prepare("SELECT * FROM Ingredient WHERE Id = :id");
         $query->execute(array(":id" => $id));
-        return $query->fetch();
+        $res =  $query->fetch();
+
+        if ($res["Type"] == Meat)
+            $res["TypeStr"] = "Viande";
+        else if ($res["Type"] == Fish)
+            $res["TypeStr"] = "Poisson";
+        else
+            $res["TypeStr"] = "Veg";
+
+        return $res;
     }
 
     public function Add($name, $type, $unit)

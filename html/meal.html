@@ -1,16 +1,26 @@
-<h2 align="center">{$Meal.Name}</h2>
-
-<table align="center">
-    <tr>
-        <td colspan="3">
-            Type : {$Meal.TypeStr} Rapide à faire : {$Meal.QuickToMakeStr}
-        </td>
-    </tr>
-    {foreach from=$Meal.Ingredients item=ing}
-    <tr>
-        <td>{$ing.Name}</td>
-        <td>{$ing.TypeStr}</td>
-        <td>{$ing.Unit}</td>
-    </tr>
-    {/foreach}
-</table>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Content Row -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                {$Meal.Name} ({$Meal.TypeStr} / Rapide à faire : {$Meal.QuickToMakeStr})
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    {foreach from=$Meal.Ingredients item=ing}
+                    <tr>
+                        <td>{$ing.Name}</td>
+                        <td>{$ing.TypeStr}</td>
+                        <td>{$ing.Unit}</td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->

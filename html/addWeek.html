@@ -16,6 +16,74 @@
         div.appendChild(innerLabel);
         div.appendChild(innerCheckbox);
     }
+
+    function createMealEntry(tab, id, name, type, quick, dayNum)
+    {
+        var tr = document.createElement("tr");
+        var tdName = document.createElement("td");
+        var tdType = document.createElement("td");
+        var tdQuick = document.createElement("td");
+        var tdButton = document.createElement("td");
+
+        var button = document.createElement("button");
+        button.setAttribute('onclick', "addMealToDay('" + name + "', " + id + ", " + dayNum + "); return false;");
+        button.innerText = "Sélectionner";
+
+        tdName.innerText = name;
+        tdType.innerText = type;
+        tdQuick.innerText = quick;
+        tdButton.appendChild(button);
+
+        tr.appendChild(tdName);
+        tr.appendChild(tdType);
+        tr.appendChild(tdQuick);
+        tr.appendChild(tdButton);
+
+        tab.appendChild(tr);
+    }
+
+    function updateMealsOfDay(dayNum)
+    {
+        var checkboxMeatId="checkboxMeat_" + dayNum;
+        var checkboxFishId="checkboxFish_" + dayNum;
+        var checkboxVegId="checkboxVeg_" + dayNum;
+        var checkboxQuickId="checkboxQuick_" + dayNum;
+        var tabId = "ingredientsTab_" + dayNum;
+
+        var meatChecked = document.getElementById(checkboxMeatId).checked;
+        var fishChecked = document.getElementById(checkboxFishId).checked;
+        var vegChecked = document.getElementById(checkboxVegId).checked;
+        var quickChecked = document.getElementById(checkboxQuickId).checked;
+        var tab = document.getElementById(tabId);
+
+        tab.innerHTML = "";
+
+        {foreach from=$Meals item=meal}
+        var isMeat = ("{$meal.TypeStr}" == "Viande");
+        var isFish = ("{$meal.TypeStr}" == "Fish");
+        var isVeg = ("{$meal.TypeStr}" == "Veg");
+        var isQuick = ("{$meal.QuickToMakeStr}" == "Oui");
+        var allFalse = (!meatChecked && !fishChecked && !quickChecked && !vegChecked);
+
+        var matchOnType = (meatChecked && isMeat) || (fishChecked && isFish) || (vegChecked && isVeg);
+
+        if (allFalse)
+        {
+            createMealEntry(tab, "{$meal.Id}", "{$meal.Name}", "{$meal.TypeStr}", "{$meal.QuickToMakeStr}", dayNum);
+        }
+        else if (quickChecked && isQuick && (!meatChecked && !fishChecked && !vegChecked))
+        {
+            createMealEntry(tab, "{$meal.Id}", "{$meal.Name}", "{$meal.TypeStr}", "{$meal.QuickToMakeStr}", dayNum);
+        }
+        else
+        {
+            if ((quickChecked && isQuick && matchOnType) || (matchOnType && !quickChecked))
+            {
+                createMealEntry(tab, "{$meal.Id}", "{$meal.Name}", "{$meal.TypeStr}", "{$meal.QuickToMakeStr}", dayNum);
+            }
+        }
+        {/foreach}
+    }
 </script>
 
 
@@ -31,8 +99,7 @@
                 <div class="col-6">
                     <form method="POST" action="index.php?page=weeks&action=add">
                         <div class="row">
-                            <label class="col-md-3 col-form-label">Ingrédients : </label>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-hover table-sm">
                                         {foreach from=$Days item=day}
@@ -73,24 +140,30 @@
                             <div class="row">
                                 <label class="col-md-2 col-form-label">Viande</label>
                                 <div clas="col-md-10">
-                                    <input type="checkbox" id="checkboxMeat" class="form-control"/>
+                                    <input type="checkbox" id="checkboxMeat_{$day.DayNum}" class="form-control" onclick="updateMealsOfDay({$day.DayNum})"/>
                                 </div>
                             </div>
                             <div class="row">
                                 <label class="col-md-2 col-form-label">Poisson</label>
                                 <div clas="col-md-10">
-                                    <input type="checkbox" id="checkboxFish" class="form-control"/>
+                                    <input type="checkbox" id="checkboxFish_{$day.DayNum}" class="form-control" onclick="updateMealsOfDay({$day.DayNum})"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Veg</label>
+                                <div clas="col-md-10">
+                                    <input type="checkbox" id="checkboxVeg_{$day.DayNum}" class="form-control" onclick="updateMealsOfDay({$day.DayNum})"/>
                                 </div>
                             </div>
                             <div class="row">
                                 <label class="col-md-2 col-form-label">Rapide</label>
                                 <div clas="col-md-10">
-                                    <input type="checkbox" id="checkboxQuick" class="form-control"/>
+                                    <input type="checkbox" id="checkboxQuick_{$day.DayNum}" class="form-control" onclick="updateMealsOfDay({$day.DayNum})"/>
                                 </div>
                             </div>
                             <div class="row">
-                                <table width="100%">
-                                    {foreach from=$day.Meals item=meal}
+                                <table width="100%" id="ingredientsTab_{$day.DayNum}">
+                                    {foreach from=$Meals item=meal}
                                     <tr>
                                         <td>{$meal.Name}</td>
                                         <td>{$meal.TypeStr}</td>
