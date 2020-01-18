@@ -27,7 +27,12 @@
                                 {foreach from=$Ingredients item=ing}
                                 <tr>
                                     <td style="text-align: center">{$ing.Name}</td>
-                                    <td style="text-align: center">{$ing.TypeStr}</td>
+                                    <td style="text-align: center">
+                                        {if $ing.Type == 0}<img src="img/steak.png"/>{/if}
+                                        {if $ing.Type == 1}<img src="img/chicken.png"/>{/if}
+                                        {if $ing.Type == 2}<img src="img/fish.png"/>{/if}
+                                        {if $ing.Type == 3}<img src="img/veg.png"/>{/if}
+                                    </td>
                                     <td style="text-align: center">{$ing.Unit}</td>
                                     <td style="text-align: center"><input type="checkbox" name="idIngredients[]" value="{$ing.Id}"
                                                class="form-control"/></td>

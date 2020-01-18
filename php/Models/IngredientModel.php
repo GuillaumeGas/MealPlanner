@@ -1,7 +1,9 @@
 <?php
 
-define ("Meat", 1);
-define ("Fish", 2);
+define ("Meat", 0);
+define ("Fish", 1);
+define ("Chicken", 2);
+define ("Veg", 3);
 
 class IngredientModel
 {
@@ -26,6 +28,8 @@ class IngredientModel
                 $ingredients[$index]["TypeStr"] = "Viande";
             else if ($data["Type"] == Fish)
                 $ingredients[$index]["TypeStr"] = "Poisson";
+            else if ($data["Type"] == Chicken)
+                $ingredients[$index]["TypeStr"] = "Poulet";
             else
                 $ingredients[$index]["TypeStr"] = "Veg";
 
@@ -43,6 +47,8 @@ class IngredientModel
 
         if ($res["Type"] == Meat)
             $res["TypeStr"] = "Viande";
+        else if ($res["Type"] == Chicken)
+            $res["TypeStr"] = "Poulet";
         else if ($res["Type"] == Fish)
             $res["TypeStr"] = "Poisson";
         else

@@ -4,7 +4,11 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                {$Meal.Name} ({$Meal.TypeStr} / Rapide à faire : {$Meal.QuickToMakeStr})
+                {$Meal.Name} (
+                {if $Meal.Type == 0}<img src="img/steak.png"/>{/if}
+                {if $Meal.Type == 1}<img src="img/chicken.png"/>{/if}
+                {if $Meal.Type == 2}<img src="img/fish.png"/>{/if}
+                {if $Meal.Type == 3}<img src="img/veg.png"/>{/if} / Rapide à faire : {if $Meal.QuickToMake == 1}<img src="img/quick.png"/>{/if})
             </h6>
         </div>
         <div class="card-body">
@@ -13,7 +17,12 @@
                     {foreach from=$Meal.Ingredients item=ing}
                     <tr>
                         <td>{$ing.Name}</td>
-                        <td>{$ing.TypeStr}</td>
+                        <td align="middle">
+                            {if $ing.Type == 0}<img src="img/steak.png"/>{/if}
+                            {if $ing.Type == 1}<img src="img/chicken.png"/>{/if}
+                            {if $ing.Type == 2}<img src="img/fish.png"/>{/if}
+                            {if $ing.Type == 3}<img src="img/veg.png"/>{/if}
+                        </td>
                         <td>{$ing.Unit}</td>
                     </tr>
                     {/foreach}

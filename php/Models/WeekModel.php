@@ -78,9 +78,10 @@ class WeekModel
 
     public function GetMealsOfWeek($id)
     {
-        //$query = $this->bdd->prepare("SELECT * FROM Meal WHERE Id IN (SELECT MealId FROM mealsofweek WHERE WeekId = :id)");
         $query = $this->bdd->prepare("SELECT * FROM Meal LEFT JOIN mealsofweek ON Meal.Id = mealsofweek.MealId WHERE WeekId = :id ORDER BY Day ASC ");
         $query->execute(array(":id" => $id));
+
+        $daysName = array("Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche");
 
         $meals = array();
         $index = 0;
@@ -90,6 +91,8 @@ class WeekModel
 
             if ($data["Type"] == Meat)
                 $meals[$index]["TypeStr"] = "Viande";
+            else if ($data["Type"] == Chicken)
+                $meals[$index]["TypeStr"] = "Poulet";
             else if ($data["Type"] == Fish)
                 $meals[$index]["TypeStr"] = "Poisson";
             else
@@ -99,6 +102,8 @@ class WeekModel
                 $meals[$index]["QuickToMakeStr"] = "Non";
             else
                 $meals[$index]["QuickToMakeStr"] = "Oui";
+
+            $meals[$index]["DayName"] = $daysName[$index];
 
             $index++;
         }

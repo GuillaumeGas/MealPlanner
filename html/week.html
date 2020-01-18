@@ -12,9 +12,15 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     {foreach from=$Week.Meals item=meal}
                     <tr>
+                        <td>{$meal.DayName}</td>
                         <td>{$meal.Name}</td>
-                        <td>{$meal.TypeStr}</td>
-                        <td>{$meal.QuickToMakeStr}</td>
+                        <td>
+                            {if $meal.Type == 0}<img src="img/steak.png"/>{/if}
+                            {if $meal.Type == 1}<img src="img/chicken.png"/>{/if}
+                            {if $meal.Type == 2}<img src="img/fish.png"/>{/if}
+                            {if $meal.Type == 3}<img src="img/veg.png"/>{/if}
+                        </td>
+                        <td>{if $meal.QuickToMake == 1}<img src="img/quick.png"/>{/if}</td>
                     </tr>
                     {/foreach}
                     </tbody>

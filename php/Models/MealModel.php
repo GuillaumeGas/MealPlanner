@@ -30,6 +30,8 @@ class MealModel
 
             if ($data["Type"] == Meat)
                 $meals[$index]["TypeStr"] = "Viande";
+            else if ($data["Type"] == Chicken)
+                $meals[$index]["TypeStr"] = "Poulet";
             else if ($data["Type"] == Fish)
                 $meals[$index]["TypeStr"] = "Poisson";
             else
@@ -48,15 +50,19 @@ class MealModel
 
     public function Add($name, $quickToMake, array $ingredientsId)
     {
-        $type = 0;
+        $type = -1;
         $ingredients = array();
+
         foreach ($ingredientsId as $ingId) {
             $ing = $this->ingredientModel->GetFromId($ingId);
-            if ($ing["Type"] == Meat || $ing["Type"] == Fish)
+            if ($ing["Type"] == Meat || $ing["Type"] == Fish || $ing["Type"] == Chicken)
                 $type = $ing["Type"];
 
             $ingredients[] = $ing;
         }
+
+        if ($type == -1)
+            $type = Veg;
 
         $query = $this->bdd->prepare("INSERT INTO meal VALUES(NULL, :name, :type, :quickToMake)");
         $query->execute(array(":name" => $name, ":type" => $type, ":quickToMake" => $quickToMake));
@@ -88,6 +94,8 @@ class MealModel
 
         if ($res["Type"] == Meat)
             $res["TypeStr"] = "Viande";
+        else if ($res["Type"] == Chicken)
+            $res["TypeStr"] = "Poulet";
         else if ($res["Type"] == Fish)
             $res["TypeStr"] = "Poisson";
         else
@@ -123,6 +131,8 @@ class MealModel
 
             if ($ingredients[$index]["Type"] == Meat)
                 $ingredients[$index]["TypeStr"] = "Viande";
+            else if ($ingredients[$index]["Type"] == Chicken)
+                $ingredients[$index]["TypeStr"] = "Poulet";
             else if ($ingredients[$index]["Type"] == Fish)
                 $ingredients[$index]["TypeStr"] = "Poisson";
             else

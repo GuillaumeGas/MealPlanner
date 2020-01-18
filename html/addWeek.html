@@ -30,8 +30,36 @@
         button.innerText = "Sélectionner";
 
         tdName.innerText = name;
-        tdType.innerText = type;
-        tdQuick.innerText = quick;
+
+        var typeImg = document.createElement("img");
+        if (type == 0)
+        {
+            typeImg.src = "img/steak.png";
+        }
+        else if (type == 1)
+        {
+            typeImg.src = "img/chicken.png";
+        }
+        else if (type == 2)
+        {
+            typeImg.src = "img/fish.png";
+        }
+        else
+        {
+            typeImg.src = "img/veg.png";
+        }
+        tdType.appendChild(typeImg);
+
+        if (quick == 1)
+        {
+            var quickImg = document.createElement("img");
+            quickImg.src = "img/quick.png";
+            tdQuick.appendChild(quickImg);
+        }
+        else
+        {
+            tdQuick.innerText = "";
+        }
         tdButton.appendChild(button);
 
         tr.appendChild(tdName);
@@ -69,17 +97,17 @@
 
         if (allFalse)
         {
-            createMealEntry(tab, "{$meal.Id}", "{$meal.Name}", "{$meal.TypeStr}", "{$meal.QuickToMakeStr}", dayNum);
+            createMealEntry(tab, "{$meal.Id}", "{$meal.Name}", {$meal.Type}, {$meal.QuickToMake}, dayNum);
         }
         else if (quickChecked && isQuick && (!meatChecked && !fishChecked && !vegChecked))
         {
-            createMealEntry(tab, "{$meal.Id}", "{$meal.Name}", "{$meal.TypeStr}", "{$meal.QuickToMakeStr}", dayNum);
+            createMealEntry(tab, "{$meal.Id}", "{$meal.Name}", {$meal.Type}, {$meal.QuickToMake}, dayNum);
         }
         else
         {
             if ((quickChecked && isQuick && matchOnType) || (matchOnType && !quickChecked))
             {
-                createMealEntry(tab, "{$meal.Id}", "{$meal.Name}", "{$meal.TypeStr}", "{$meal.QuickToMakeStr}", dayNum);
+                createMealEntry(tab, "{$meal.Id}", "{$meal.Name}", {$meal.Type}, {$meal.QuickToMake}, dayNum);
             }
         }
         {/foreach}
@@ -166,8 +194,13 @@
                                     {foreach from=$Meals item=meal}
                                     <tr>
                                         <td>{$meal.Name}</td>
-                                        <td>{$meal.TypeStr}</td>
-                                        <td>{$meal.QuickToMakeStr}</td>
+                                        <td>
+                                            {if $meal.Type == 0}<img src="img/steak.png"/>{/if}
+                                            {if $meal.Type == 1}<img src="img/chicken.png"/>{/if}
+                                            {if $meal.Type == 2}<img src="img/fish.png"/>{/if}
+                                            {if $meal.Type == 3}<img src="img/veg.png"/>{/if}
+                                        </td>
+                                        <td>{if $meal.QuickToMake == 1}<img src="img/quick.png"/>{/if}</td>
                                         <td>
                                             <button onclick="addMealToDay('{$meal.Name}', {$meal.Id}, {$day.DayNum}); return false;">
                                                 Sélectionner

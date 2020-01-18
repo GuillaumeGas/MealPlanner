@@ -23,7 +23,12 @@
                     {foreach from=$Ingredients item=ing}
                     <tr>
                         <td><a href="index.php?page=ingredients&id={$ing.Id}">{$ing.Name}</a></td>
-                        <td>{$ing.TypeStr}</td>
+                        <td>
+                            {if $ing.Type == 0}<img src="img/steak.png"/>{/if}
+                            {if $ing.Type == 1}<img src="img/chicken.png"/>{/if}
+                            {if $ing.Type == 2}<img src="img/fish.png"/>{/if}
+                            {if $ing.Type == 3}<img src="img/veg.png"/>{/if}
+                        </td>
                         <td>{$ing.Unit}</td>
                         <td style="text-align: center">
                             <a href="index.php?page=ingredients&action=delete&id={$ing.Id}" class="btn btn-outline-danger btn-sm">
