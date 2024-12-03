@@ -1,11 +1,11 @@
 <?php
 
 require_once("mysql_connect.php");
-require_once("smarty/Smarty.class.php");
+require_once("smarty/libs/Smarty.class.php");
 
 require_once("php/Controllers/ContentController.php");
 
-$smarty  = new Smarty();
+$smarty  = new Smarty\Smarty();
 
 if(isset($_GET['page'])) {
     $page = $_GET['page'];
