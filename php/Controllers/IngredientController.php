@@ -8,10 +8,13 @@ class IngredientController extends BaseController
     private $ingredientModel;
 
     const INGREDIENT_ROUTE = "ingredients";
+    const ACTION_ADD_INGREDIENT = 1;
+    const ACTION_SET_INGREDIENT = 2;
 
     public function __construct($bdd, $smarty) {
         $actions = array(
             "add" => array($this, "AddIngredient"),
+            "set" => array($this, "SetIngredient"),
             "delete" => array($this, "DeleteIngredient")
         );
 
@@ -47,6 +50,8 @@ class IngredientController extends BaseController
             return $this->PrintIngredients();
         }
 
+        $this->smarty->assign("Action", self::ACTION_ADD_INGREDIENT);
+
         return $this->smarty->fetch("html/addIngredient.html");
     }
 
@@ -58,5 +63,25 @@ class IngredientController extends BaseController
         }
 
         return $this->PrintIngredients();
+    }
+
+    public function SetIngredient()
+    {
+        if (!isset($_GET['id']) && !isset($_POST["ingredientId"]))
+        {
+            return $this->PrintIngredients();
+        }
+
+        $ingredientId = isset($_GET['id']) ? $_GET['id'] : $_POST["ingredientId"];
+
+        if (isset($_POST["ingredientName"]) && isset($_POST["type"]) && isset($_POST["unit"]))
+        {
+            $this->ingredientModel->Set($ingredientId, $_POST["ingredientName"], $_POST["type"], $_POST["unit"]);
+        }
+
+        $ingredient = $this->ingredientModel->GetFromId($ingredientId);
+        $this->smarty->assign("Ingredient", $ingredient);
+        $this->smarty->assign("Action", self::ACTION_SET_INGREDIENT);
+        return $this->smarty->fetch("html/addIngredient.html");
     }
 }

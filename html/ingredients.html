@@ -22,7 +22,7 @@
                     <tbody>
                     {foreach from=$Ingredients item=ing}
                     <tr>
-                        <td><a href="index.php?page=ingredients&id={$ing.Id}">{$ing.Name}</a></td>
+                        <td><a href="index.php?page=ingredients&action=set&id={$ing.Id}">{$ing.Name}</a></td>
                         <td>
                             {if $ing.Type == 0}<img src="img/steak.png"/>{/if}
                             {if $ing.Type == 1}<img src="img/chicken.png"/>{/if}
@@ -31,6 +31,9 @@
                         </td>
                         <td>{$ing.Unit}</td>
                         <td style="text-align: center">
+                            <a href="index.php?page=ingredients&action=set&id={$ing.Id}" class="btn btn-outline-primary btn-sm">
+                                Modifier
+                            </a>
                             <a href="index.php?page=ingredients&action=delete&id={$ing.Id}" class="btn btn-outline-danger btn-sm">
                                 Supprimer
                             </a>

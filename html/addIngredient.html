@@ -3,24 +3,33 @@
     <!-- Content Row -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
+            {if $Action == 1}
             <h6 class="m-0 font-weight-bold text-primary">Nouvel Ingrédient</h6>
+            {else}
+            <h6 class="m-0 font-weight-bold text-primary">Ingrédient : {$Ingredient.Name}</h6>
+            {/if}
         </div>
         <div class="card-body">
+            {if $Action == 1}
             <form method="POST" action="index.php?page=ingredients&action=add">
+            {else}
+            <form method="POST" action="index.php?page=ingredients&action=set">
+                <input type="hidden" name="ingredientId" value="{$Ingredient.Id}"/>
+            {/if}
                 <div class="form-group row">
                     <label class="col-md-2 col-form-label">Nom : </label>
                     <div class="col-md-10">
-                        <input type="text" name="ingredientName" class="form-control"/>
+                        <input type="text" name="ingredientName" class="form-control" {if $Action == 2} value="{$Ingredient.Name}" {/if}/>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-md-2 col-form-label">Type : </label>
                     <div class="col-md-10">
                         <select name="type" class="form-control">
-                            <option value="0">Viande rouge</option>
-                            <option value="1">Poulet</option>
-                            <option value="2">Poisson</option>
-                            <option value="3">Veg</option>
+                            <option value="0" {if $Action == 2 && $Ingredient.Type == 0}selected{/if}>Viande rouge</option>
+                            <option value="1" {if $Action == 2 && $Ingredient.Type == 1}selected{/if}>Poulet</option>
+                            <option value="2" {if $Action == 2 && $Ingredient.Type == 2}selected{/if}>Poisson</option>
+                            <option value="3" {if $Action == 2 && $Ingredient.Type == 3}selected{/if}>Veg</option>
                         </select>
                     </div>
                 </div>
@@ -28,9 +37,9 @@
                     <label class="col-md-2 col-form-label">Unité : </label>
                     <div class="col-md-10">
                         <select name="unit" class="form-control">
-                            <option value="0">(kilo)gramme</option>
-                            <option value="1">litre</option>
-                            <option value="2">piece</option>
+                            <option value="0" {if $Action == 2 && $Ingredient.Unit == 0}selected{/if}>(kilo)gramme</option>
+                            <option value="1" {if $Action == 2 && $Ingredient.Unit == 1}selected{/if}>litre</option>
+                            <option value="2" {if $Action == 2 && $Ingredient.Unit == 2}selected{/if}>piece</option>
                         </select>
                     </div>
                 </div>

@@ -63,6 +63,12 @@ class IngredientModel
         $query->execute(array(":name" => $name, ":type" => $type, ":unit" => $unit));
     }
 
+    public function Set($id, $name, $type, $unit)
+    {
+        $query = $this->bdd->prepare("UPDATE ingredient SET Name = :name, Type = :type, Unit = :unit WHERE Id = :id");
+        $query->execute(array(":name" => $name, ":type" => $type, ":unit" => $unit, ":id" => $id));
+    }
+
     public function Delete($id)
     {
         $query = $this->bdd->prepare("DELETE FROM ingredient WHERE Id = :id");
