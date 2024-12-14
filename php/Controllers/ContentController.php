@@ -3,8 +3,6 @@
 require_once("php/Controllers/MealController.php");
 require_once("php/Controllers/IngredientController.php");
 require_once("php/Controllers/WeekController.php");
-//require_once("php/MealFinder.class.php");
-
 
 class ContentController {
 
@@ -36,6 +34,16 @@ class ContentController {
         }
 
         return $content;
+    }
+
+    public function GetPreviousPageUrl($page, $get)
+    {
+        $url = "index.php?page=".$page."&previousPage=1";
+        foreach ($get as $key => $value)
+        {
+            $url .= "&".$key."=".$value;
+        }
+        return $url;
     }
 
     private function GetMeals()
