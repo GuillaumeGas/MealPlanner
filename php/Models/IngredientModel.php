@@ -45,14 +45,17 @@ class IngredientModel
         $query->execute(array(":id" => $id));
         $res =  $query->fetch();
 
-        if ($res["Type"] == Meat)
-            $res["TypeStr"] = "Viande";
-        else if ($res["Type"] == Chicken)
-            $res["TypeStr"] = "Poulet";
-        else if ($res["Type"] == Fish)
-            $res["TypeStr"] = "Poisson";
-        else
-            $res["TypeStr"] = "Veg";
+        if ($res)
+        {
+            if ($res["Type"] == Meat)
+                $res["TypeStr"] = "Viande";
+            else if ($res["Type"] == Chicken)
+                $res["TypeStr"] = "Poulet";
+            else if ($res["Type"] == Fish)
+                $res["TypeStr"] = "Poisson";
+            else
+                $res["TypeStr"] = "Veg";
+        }
 
         return $res;
     }
@@ -60,18 +63,18 @@ class IngredientModel
     public function Add($name, $type, $unit)
     {
         $query = $this->bdd->prepare("INSERT INTO ingredient VALUES(NULL, :name, :type, :unit)");
-        $query->execute(array(":name" => $name, ":type" => $type, ":unit" => $unit));
+        return $query->execute(array(":name" => $name, ":type" => $type, ":unit" => $unit));
     }
 
     public function Set($id, $name, $type, $unit)
     {
         $query = $this->bdd->prepare("UPDATE ingredient SET Name = :name, Type = :type, Unit = :unit WHERE Id = :id");
-        $query->execute(array(":name" => $name, ":type" => $type, ":unit" => $unit, ":id" => $id));
+        return $query->execute(array(":name" => $name, ":type" => $type, ":unit" => $unit, ":id" => $id));
     }
 
     public function Delete($id)
     {
         $query = $this->bdd->prepare("DELETE FROM ingredient WHERE Id = :id");
-        $query->execute(array(":id" => $id));
+        return $query->execute(array(":id" => $id));
     }
 }

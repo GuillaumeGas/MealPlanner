@@ -47,6 +47,9 @@ class IngredientController extends BaseController
         if (isset($_POST["ingredientName"]) && isset($_POST["type"]) && isset($_POST["unit"]))
         {
             $this->ingredientModel->Add($_POST["ingredientName"], $_POST["type"], $_POST["unit"]);
+
+            $this->userMessagesHandler->AddMessage(0, "'".$_POST["ingredientName"]."' ajouté avec succès !");
+
             return $this->PrintIngredients();
         }
 
@@ -59,7 +62,26 @@ class IngredientController extends BaseController
     {
         if (isset($_GET['id']))
         {
-            $this->ingredientModel->Delete($_GET['id']);
+            $ingredient = $this->ingredientModel->GetFromId($_GET['id']);
+            if (!$ingredient)
+            {
+                $this->userMessagesHandler->AddMessage(2, "Ingredient introuvable");
+            }
+            else
+            {
+                if ($this->ingredientModel->Delete($_GET['id']))
+                {
+                    $this->userMessagesHandler->AddMessage(0, "'".$ingredient['Name']."' supprimé avec succès !");
+                }
+                else
+                {
+                    $this->userMessagesHandler->AddMessage(2, "Une erreur est survenue lors de la suppression de l'ingredient '".$ingredient['Name']."'.");
+                }
+            }
+        }
+        else
+        {
+            $this->userMessagesHandler->AddMessage(2, "Ingredient introuvable");
         }
 
         return $this->PrintIngredients();
@@ -69,6 +91,7 @@ class IngredientController extends BaseController
     {
         if (!isset($_GET['id']) && !isset($_POST["ingredientId"]))
         {
+            $this->userMessagesHandler->AddMessage(2, "Une erreur est survenue lors de l'ajout ou la modification d'un ingrédient.");
             return $this->PrintIngredients();
         }
 
@@ -76,10 +99,25 @@ class IngredientController extends BaseController
 
         if (isset($_POST["ingredientName"]) && isset($_POST["type"]) && isset($_POST["unit"]))
         {
-            $this->ingredientModel->Set($ingredientId, $_POST["ingredientName"], $_POST["type"], $_POST["unit"]);
+            if ($this->ingredientModel->Set($ingredientId, $_POST["ingredientName"], $_POST["type"], $_POST["unit"]))
+            {
+                $this->userMessagesHandler->AddMessage(0, "Ingredient '".$_POST["ingredientName"]."' modifié avec succès !");
+            }
+            else
+            {
+                $this->userMessagesHandler->AddMessage(2, "Une erreur est survenue lors de la modification de l'ingrédient '".$_POST['ingredientName']."'.");
+                return $this->PrintIngredients();
+            }
         }
 
         $ingredient = $this->ingredientModel->GetFromId($ingredientId);
+
+        if (!$ingredient)
+        {
+            $this->userMessagesHandler->AddMessage(2, "Une erreur est survenue lors de la modification, ingrédient introuvable.");
+            return $this->PrintIngredients();
+        }
+
         $this->smarty->assign("Ingredient", $ingredient);
         $this->smarty->assign("Action", self::ACTION_SET_INGREDIENT);
         return $this->smarty->fetch("html/addIngredient.html");

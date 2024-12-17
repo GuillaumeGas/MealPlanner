@@ -70,10 +70,12 @@ class WeekModel
     public function Delete($id)
     {
         $query = $this->bdd->prepare("DELETE FROM mealsOfWeek WHERE WeekId = :id");
-        $query->execute(array(":id" => $id));
+        $resQuery1 = $query->execute(array(":id" => $id));
 
         $query = $this->bdd->prepare("DELETE FROM week WHERE Id = :id");
-        $query->execute(array(":id" => $id));
+        $resQuery2 = $query->execute(array(":id" => $id));
+
+        return $resQuery1 && $resQuery2;
     }
 
     public function GetMealsOfWeek($id)

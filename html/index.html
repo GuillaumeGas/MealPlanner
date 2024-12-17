@@ -138,11 +138,16 @@
             <div class="container-fluid">
                 <!-- Content Row -->
                 <div class="card shadow mb-1">
-                    <div class="card-body">
-                        <a class="btn btn-light btn-sm" role="button" href="{$PreviousPage}">&#8249;&#8249;</a>
+                    <div class="">
+                        <a class="btn btn-light btn-sm" role="button" href="{$PreviousPage}">&#8249;&#8249; Retour</a>
                     </div>
                 </div>
             </div>
+
+            {if $DisplayUserMessages == 1}
+                {$UserMessages}
+            {/if}
+
             <!-- /.container-fluid -->
             {$DebugStr}
             {$Content}

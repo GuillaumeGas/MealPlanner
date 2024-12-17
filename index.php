@@ -4,6 +4,8 @@ require_once("mysql_connect.php");
 require_once("smarty/libs/Smarty.class.php");
 
 require_once("php/Controllers/ContentController.php");
+require_once("php/Controllers/UserMessagesController.php");
+require_once("php/Tools/UserMessagesHandler.php");
 
 session_start();
 
@@ -24,6 +26,16 @@ if(isset($_GET['page'])) {
 $content = new ContentController($bdd, $smarty, $page);
 $content_page = $content->GetContent();
 $content->SetPreviousButton($page);
+
+if (!UserMessagesHandler::GetInstance()->IsEmpty())
+{
+    $smarty->assign("DisplayUserMessages", true);
+
+    $userMessagesController = new UserMessagesController($bdd, $smarty);
+    $userMessages_content = $userMessagesController->GetContent();
+
+    $smarty->assign("UserMessages", $userMessages_content);
+}
 
 $smarty->assign("Content", $content_page);
 

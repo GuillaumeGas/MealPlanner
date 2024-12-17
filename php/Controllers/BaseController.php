@@ -1,6 +1,7 @@
 <?php
 
 require_once ("php/Controllers/MessageController.php");
+require_once("php/Tools/UserMessagesHandler.php");
 
 abstract class BaseController
 {
@@ -8,6 +9,7 @@ abstract class BaseController
     protected $smarty;
     protected $actions;
     protected $defaultRoute;
+    protected $userMessagesHandler;
 
     function __construct($bdd, $smarty, $actions, $defaultRoute)
     {
@@ -15,6 +17,7 @@ abstract class BaseController
         $this->smarty = $smarty;
         $this->actions = $actions;
         $this->defaultRoute = $defaultRoute;
+        $this->userMessagesHandler = UserMessagesHandler::GetInstance();
     }
 
     protected function ExecuteAction($action)

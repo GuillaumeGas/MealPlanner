@@ -112,10 +112,10 @@ class MealModel
     public function Delete($id)
     {
         $query = $this->bdd->prepare("DELETE FROM ingredientsofmeal WHERE MealId = :id");
-        $query->execute(array(":id" => $id));
+        return $query->execute(array(":id" => $id));
 
         $query = $this->bdd->prepare("DELETE FROM meal WHERE Id = :id");
-        $query->execute(array(":id" => $id));
+        return $query->execute(array(":id" => $id));
     }
 
     public function GetIngredientsOfMeal($id)
