@@ -29,18 +29,18 @@ class MealModel
             $meals[$index]["Ingredients"] = $ingredients;
 
             if ($data["Type"] == Meat)
-                $meals[$index]["TypeStr"] = "Viande";
+                $meals[$index]["TypeStr"] = "Meat";
             else if ($data["Type"] == Chicken)
-                $meals[$index]["TypeStr"] = "Poulet";
+                $meals[$index]["TypeStr"] = "Chicken";
             else if ($data["Type"] == Fish)
-                $meals[$index]["TypeStr"] = "Poisson";
+                $meals[$index]["TypeStr"] = "Fish";
             else
                 $meals[$index]["TypeStr"] = "Veg";
 
             if ($data["QuickToMake"] == 0)
-                $meals[$index]["QuickToMakeStr"] = "Non";
+                $meals[$index]["QuickToMakeStr"] = "No";
             else
-                $meals[$index]["QuickToMakeStr"] = "Oui";
+                $meals[$index]["QuickToMakeStr"] = "Yes";
 
             $index++;
         }
@@ -93,18 +93,18 @@ class MealModel
         $res["Ingredients"] = $this->GetIngredientsOfMeal($id);
 
         if ($res["Type"] == Meat)
-            $res["TypeStr"] = "Viande";
+            $res["TypeStr"] = "Meat";
         else if ($res["Type"] == Chicken)
-            $res["TypeStr"] = "Poulet";
+            $res["TypeStr"] = "Chicken";
         else if ($res["Type"] == Fish)
-            $res["TypeStr"] = "Poisson";
+            $res["TypeStr"] = "Fish";
         else
             $res["TypeStr"] = "Veg";
 
         if ($res["QuickToMake"] == 0)
-            $res["QuickToMakeStr"] = "Non";
+            $res["QuickToMakeStr"] = "No";
         else
-            $res["QuickToMakeStr"] = "Oui";
+            $res["QuickToMakeStr"] = "Yes";
 
         return $res;
     }
@@ -130,11 +130,11 @@ class MealModel
             $ingredients[$index] = $data;
 
             if ($ingredients[$index]["Type"] == Meat)
-                $ingredients[$index]["TypeStr"] = "Viande";
+                $ingredients[$index]["TypeStr"] = "Meat";
             else if ($ingredients[$index]["Type"] == Chicken)
-                $ingredients[$index]["TypeStr"] = "Poulet";
+                $ingredients[$index]["TypeStr"] = "Chicken";
             else if ($ingredients[$index]["Type"] == Fish)
-                $ingredients[$index]["TypeStr"] = "Poisson";
+                $ingredients[$index]["TypeStr"] = "Fish";
             else
                 $ingredients[$index]["TypeStr"] = "Veg";
 

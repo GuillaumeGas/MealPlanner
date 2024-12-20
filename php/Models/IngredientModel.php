@@ -25,11 +25,11 @@ class IngredientModel
         {
             $ingredients[$index] = $data;
             if ($data["Type"] == Meat)
-                $ingredients[$index]["TypeStr"] = "Viande";
+                $ingredients[$index]["TypeStr"] = "Meat";
             else if ($data["Type"] == Fish)
-                $ingredients[$index]["TypeStr"] = "Poisson";
+                $ingredients[$index]["TypeStr"] = "Fish";
             else if ($data["Type"] == Chicken)
-                $ingredients[$index]["TypeStr"] = "Poulet";
+                $ingredients[$index]["TypeStr"] = "Chicken";
             else
                 $ingredients[$index]["TypeStr"] = "Veg";
 
@@ -48,11 +48,11 @@ class IngredientModel
         if ($res)
         {
             if ($res["Type"] == Meat)
-                $res["TypeStr"] = "Viande";
+                $res["TypeStr"] = "Meat";
             else if ($res["Type"] == Chicken)
-                $res["TypeStr"] = "Poulet";
+                $res["TypeStr"] = "Chicken";
             else if ($res["Type"] == Fish)
-                $res["TypeStr"] = "Poisson";
+                $res["TypeStr"] = "Fish";
             else
                 $res["TypeStr"] = "Veg";
         }

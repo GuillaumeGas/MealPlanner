@@ -87,10 +87,10 @@
         tab.innerHTML = "";
 
         {foreach from=$Meals item=meal}
-        var isMeat = ("{$meal.TypeStr}" == "Viande");
+        var isMeat = ("{$meal.TypeStr}" == "Meat");
         var isFish = ("{$meal.TypeStr}" == "Fish");
         var isVeg = ("{$meal.TypeStr}" == "Veg");
-        var isQuick = ("{$meal.QuickToMakeStr}" == "Oui");
+        var isQuick = ("{$meal.QuickToMakeStr}" == "Yes");
         var allFalse = (!meatChecked && !fishChecked && !quickChecked && !vegChecked);
 
         var matchOnType = (meatChecked && isMeat) || (fishChecked && isFish) || (vegChecked && isVeg);
